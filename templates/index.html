@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Heonho Kim">
+    <title>:: SejongUniv. JYM ::</title>
+
+    <link rel="canonical" href="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='dist/css/cover.css') }}" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">SejongUniv. M.</h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link active" href="{{ url_for('main') }}">Home</a>
+            <a class="nav-link" href="{{ url_for('rental') }}">Club Room Rental</a>
+          </nav>
+        </div>
+      </header>
+
+      <main role="main" class="inner cover">
+        <img src="{{ url_for('static', filename='img/we.jpg') }}" style="max-width: 50%; margin-left: -10px; object-fit: contain; opacity: 0.3;"/>
+        <hr/>
+        <h1 class="cover-heading">Welcome!</h1>
+        <p class="lead">
+          We are JYM SejongUniv. Mustardseed.
+        </p>
+      </main>
+
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>
+            © 2020 <a href="http://jym.or.kr/">JYM</a> (Joyful Youth Mission)</p>
+        </div>
+      </footer>
+    </div>
+
+
+  </body>
+</html>

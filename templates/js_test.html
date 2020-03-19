@@ -1,0 +1,231 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            function print(text){
+                $('#print').append("<p>" + text + "</p>");
+            }
+
+            function setTimes(start, end){
+                if(start == null || end == null){
+                    start = new Date();
+                    end = new Date();
+                    print("now: " + start);
+
+                    var nowHH = start.getHours();
+                    var nowMM = start.getMinutes();
+                    print("hh: " + nowHH);
+                    print("mm: " + nowMM);
+
+                    if(nowMM < 30){
+                        print("mm < 30");
+                        start.setHours(nowHH, 30, 0, 0, 0);
+                        end.setHours(nowHH + 1, 0, 0, 0, 0);
+                    }else{
+                        print("mm >= 30");
+                        start.setHours(nowHH + 1, 0, 0, 0);
+                        end.setHours(nowHH + 1, 30, 0, 0, 0);
+                    }
+                }
+
+                print("start: " + start);
+                print("end: " + end);
+                
+                $('#i-sHH').val("" + start.getHours()).prop("selected", true);
+                $('#i-sMM').val("" + start.getMinutes()).prop("selected", true);
+                $('#i-eHH').val("" + end.getHours()).prop("selected", true);
+                $('#i-eMM').val("" + end.getMinutes()).prop("selected", true);
+
+                stimeChanged();
+            }
+
+            function daysOfMonth(year, month){
+                return 32 - new Date(year, month-1, 32).getDate();
+            }
+            function setDate(date){
+                if(date == null){
+                    date = new Date();
+                }
+                var y = date.getFullYear();
+                var m = date.getMonth() + 1;
+                var d = date.getDate();
+                print("date: " + date);
+                print("y-m-d: " + y + "-" + m + "-" + d);
+
+                $('#i-YYYY').remove();
+                $('#i-YYYY-td').append('<select class="custom-select" id="i-YYYY"></select>');
+                $('#i-YYYY').append('<option value="'+y+'" selected>'+y+'</option>');
+                $('#i-YYYY').append('<option value="'+(y + 1)+'">'+(y + 1)+'</option>');
+
+                $('#i-MM').val("" + m).prop("selected", true);
+
+                $('#i-DD').remove();
+                $('#i-DD-td').append('<select class="custom-select" id="i-DD"></select>');
+                var days = daysOfMonth(y, m);
+                for(var i=0; i<days; i++){
+                    $('#i-DD').append('<option value="'+(i + 1)+'">'+(i + 1)+'</option>');
+                }
+                $('#i-DD').val("" + d).prop("selected", true);
+            }
+
+            function monthChanged(){
+                var y = parseInt($('#i-YYYY option:selected').val());
+                var m = parseInt($('#i-MM option:selected').val());
+                var days = daysOfMonth(y, m);
+
+                $('#i-DD').remove();
+                $('#i-DD-td').append('<select class="custom-select" id="i-DD"></select>');
+                for(var i=0; i<days; i++){
+                    $('#i-DD').append('<option value="'+(i + 1)+'">'+(i + 1)+'</option>');
+                }
+                $('#i-DD').val("1").prop("selected", true);
+            }
+
+            function stimeChanged(){
+                var h = parseInt($('#i-sHH option:selected').val());
+                var m = parseInt($('#i-sMM option:selected').val());
+                if(m > 0){
+                    h = h + 1;
+                }
+
+                $('#i-eHH').remove();
+                $('#i-eHH-td').append('<select class="custom-select" id="i-eHH"></select>');
+                for(var i=h; i<=24; i++){
+                    if(i < 10){
+                        $('#i-eHH').append('<option value="'+i+'">0'+i+'</option>');
+                    }else{
+                        $('#i-eHH').append('<option value="'+i+'">'+i+'</option>');
+                    }
+                }
+                $('#i-eHH').val("" + h).prop("selected", true);
+            }
+
+            function checking(){
+                var x = $('#i-noOutsider').is(':checked');
+                print("c: " + x);
+                $('#i-noOutsider').prop("checked", !x);
+            }
+        </script>
+    </head>
+    <body>
+        <button onClick="setDate(null); setTimes(null, null);">Execute</button>
+        <button onClick="checking();">Checking</button>
+        <table style="border: 1px solid #000;">
+            <tr>
+              <td id="i-YYYY-td">
+                <select class="custom-select" id="i-YYYY">
+                  <option value="2020" selected>2020</option>
+                  <option value="2019">2019</option>
+                  <option value="2018">2018</option>
+                </select>
+              </td>
+              <td>/</td>
+              <td id="i-MM-td">
+                <select class="custom-select" id="i-MM" onchange="monthChanged();">
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+              </td>
+              <td>/</td>
+              <td id="i-DD-td">
+                <select class="custom-select" id="i-DD">
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+          <table style="border: 1px solid #000;">
+            <tr>
+              <td>
+                <select class="custom-select" id="i-sHH" onchange="stimeChanged();">
+                  <option value="0" selected>00</option>
+                  <option value="1">01</option>
+                  <option value="2">02</option>
+                  <option value="3">03</option>
+                  <option value="4">04</option>
+                  <option value="5">05</option>
+                  <option value="6">06</option>
+                  <option value="7">07</option>
+                  <option value="8">08</option>
+                  <option value="9">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                </select>
+              </td>
+              <td>:</td>
+              <td>
+                <select class="custom-select" id="i-sMM" onchange="stimeChanged();">
+                  <option value="0" selected>00</option>
+                  <option value="30">30</option>
+                </select>
+              </td>
+              <td>~</td>
+              <td id="i-eHH-td">
+                <select class="custom-select" id="i-eHH">
+                  <option value="0" selected>00</option>
+                  <option value="1">01</option>
+                  <option value="2">02</option>
+                  <option value="3">03</option>
+                  <option value="4">04</option>
+                  <option value="5">05</option>
+                  <option value="6">06</option>
+                  <option value="7">07</option>
+                  <option value="8">08</option>
+                  <option value="9">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                </select>
+              </td>
+              <td>:</td>
+              <td>
+                <select class="custom-select" id="i-eMM">
+                  <option value="0" selected>00</option>
+                  <option value="30">30</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+          <input class="form-check-input" type="checkbox" value="" id="i-noOutsider">
+            <label class="form-check-label" for="i-noOutsider">
+                No outsider
+            </label>
+          <hr/>
+          <div id="print"></div>
+    </body>
+</html>

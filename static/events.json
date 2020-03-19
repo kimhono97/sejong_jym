@@ -1,0 +1,38 @@
+[
+	{
+		"id": 0,
+		"title": "\ub0c9\ubb34",
+		"start": "2020-08-09T14:00:00",
+		"end": "2020-08-09T16:00:00",
+		"extendedProps": {
+			"chief": "\uc8fc\ubc94\uc900",
+			"people": 10,
+			"outsider": false,
+			"note": "\uc0dd\uc77c"
+		}
+	},
+	{
+		"id": 1,
+		"title": "TEST1 / Test Team",
+		"start": "2020-02-29T15:00:00",
+		"end": "2020-02-29T16:30:00",
+		"extendedProps": {
+			"chief": "Test",
+			"people": 4,
+			"outsider": true,
+			"note": ""
+		}
+	},
+	{
+		"id": 2,
+		"title": "TEST2 / Test Team",
+		"start": "2020-02-29T16:00:00",
+		"end": "2020-02-29T17:00:00",
+		"extendedProps": {
+			"chief": "Test",
+			"people": 2,
+			"outsider": true,
+			"note": ""
+		}
+	}
+]
