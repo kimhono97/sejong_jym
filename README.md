@@ -2,7 +2,7 @@
 ### Server
 	Flask (Python 3)
 ### CSS
-  - Bootstrap
+	- Bootstrap
 ### JavaScript
 	- Bootstrap
 	- FullCalendar
